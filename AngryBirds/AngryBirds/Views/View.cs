@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AngryBirds.Views
+namespace AngryBirds
 {
-    class Views
+    public class View
     {
         public void Start()
         {
