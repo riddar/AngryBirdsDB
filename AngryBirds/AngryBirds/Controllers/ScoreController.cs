@@ -17,7 +17,7 @@ namespace AngryBirds.Controllers
         {
             try
             {
-                var scores = from score in context.Scores
+                var scores = from score in context.Score
                              select score;
                 return (scores).AsEnumerable();
             }
@@ -33,7 +33,7 @@ namespace AngryBirds.Controllers
 
             try
             {
-                score = (from scoreId in context.Scores
+                score = (from scoreId in context.Score
                              where scoreId.Id == id
                              select scoreId).First();
                 return score;
@@ -50,7 +50,7 @@ namespace AngryBirds.Controllers
 
             try
             {
-                context.Scores.Add(score);
+                context.Score.Add(score);
             }
             catch (Exception e)
             {
@@ -70,13 +70,13 @@ namespace AngryBirds.Controllers
 
             try
             {
-                score = (from scoreId in context.Scores
+                score = (from scoreId in context.Score
                                where scoreId.Id == id
                                select scoreId).Single();
 
                 if (score != null)
                 {
-                    context.Scores.Add(score2);
+                    context.Score.Add(score2);
                     return score2;
                 }
                 else
@@ -99,7 +99,7 @@ namespace AngryBirds.Controllers
             Score score = null;
             try
             {
-                score = (from scoreId in context.Scores
+                score = (from scoreId in context.Score
                          where scoreId.Id == id
                          select scoreId).Single();
 
@@ -129,13 +129,13 @@ namespace AngryBirds.Controllers
             Score score = null;
             try
             {
-                score = (from scoreId in context.Scores
+                score = (from scoreId in context.Score
                          where scoreId.Id == id
                          select scoreId).Single();
 
                 if (score != null)
                 {
-                    context.Scores.Remove(score);
+                    context.Score.Remove(score);
                     return true;
                 }
                 else
