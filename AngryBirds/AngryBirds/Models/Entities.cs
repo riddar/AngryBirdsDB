@@ -28,7 +28,6 @@ namespace AngryBirds.Models
         [StringLength(50)]
         public string Name { get; set; }
         [Required]
-        [MaxLength(10)]
         public int Birds { get; set; }
     }
 
@@ -40,8 +39,7 @@ namespace AngryBirds.Models
         [StringLength(50)]
         public string Name { get; set; }
         [Required]
-        [MaxLength(10)]
-        public string Points { get; set; }
+        public int Points { get; set; }
 
         public int PlayerId { get; set; }
         [ForeignKey("PlayerId")]
