@@ -121,7 +121,6 @@ namespace AngryBirds.Controllers
             {
                 context.SaveChanges();
             }
-            
         }
 
         static bool DeleteScoreById(int id)

@@ -23,7 +23,7 @@ namespace AngryBirds.Controllers
             }
             catch (Exception ex)
             {
-                // Suppress exception for now...
+                throw ex;
             }
             finally
             {
