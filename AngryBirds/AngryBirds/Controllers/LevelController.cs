@@ -7,7 +7,7 @@ using AngryBirds.Models;
 
 namespace AngryBirds.Controllers
 {
-    class LevelController
+    public class LevelController
     {
         static AngryBirdsContext context = new AngryBirdsContext();
 
@@ -21,7 +21,7 @@ namespace AngryBirds.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                
             }
             finally
             {

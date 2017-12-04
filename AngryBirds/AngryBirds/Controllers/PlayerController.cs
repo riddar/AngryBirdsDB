@@ -11,7 +11,7 @@ namespace AngryBirds.Controllers
     {
         static AngryBirdsContext context = new AngryBirdsContext();
 
-        static void AddOrShowPlayer(string playerName)
+        public static void AddOrShowPlayer(string playerName)
         {
             Player thisPlayer = null;
 
@@ -23,20 +23,18 @@ namespace AngryBirds.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                
             }
             finally
             {
                 if (thisPlayer != null)
                 {
 
-                    var score = (from sc in context.Score
-                                 where sc.PlayerId == thisPlayer.Id
-                                 select sc).ToList();
+                    var score = ScoreController.GetScoreByPlayer(thisPlayer);
 
                     Console.WriteLine($" {playerName} scores:");
                     foreach (var sc in score)
-                        Console.WriteLine($" {sc.Level.Name}: {sc.Points} [{sc.Level.Birds} max]");
+                        Console.WriteLine($" {sc.Level.Name}: {sc.Points} drag [{sc.Level.Birds - sc.Points} kvar] Highscore: {sc.Level.Scores.Max().Points} by {sc.Level.Scores.Max().Player.Name}");
                 }
                 else
                 {
@@ -44,9 +42,8 @@ namespace AngryBirds.Controllers
 
                     thisPlayer.Name = playerName;
 
-                    Console.WriteLine($"No player found with name '{playerName}', registering name.\n");
-                    Console.WriteLine("Please enter a password for your account: ");
-                    thisPlayer.Password = Console.ReadLine();
+                    Console.WriteLine($"No player found with name '{playerName}', press any key to register!.\n");
+                    Console.ReadKey(true);
 
                     context.Players.Add(thisPlayer);
                     context.SaveChanges();
@@ -54,7 +51,7 @@ namespace AngryBirds.Controllers
             }
         }
 
-        static void DeletePlayer(Player player)
+        public static void DeletePlayer(Player player)
         {
             context.Players.Remove(player);
             context.SaveChanges();

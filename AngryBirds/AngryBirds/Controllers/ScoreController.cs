@@ -13,7 +13,7 @@ namespace AngryBirds.Controllers
     {
         static AngryBirdsContext context = new AngryBirdsContext();
 
-        static IEnumerable<Score> GetAllScores()
+        public static IEnumerable<Score> GetAllScores()
         {
             try
             {
@@ -23,56 +23,71 @@ namespace AngryBirds.Controllers
             }
             catch (Exception e)
             {
-                throw e;
+                return null;
             }
         }
 
-        static Score GetScoreById(int id)
+        public static Score GetScoreById(int id)
         {
             Score score = null;
 
             try
             {
                 score = (from scoreId in context.Score
-                             where scoreId.Id == id
-                             select scoreId).First();
+                         where scoreId.Id == id
+                         select scoreId).First();
                 return score;
             }
             catch (Exception e)
             {
-                throw e;
+                return null;
             }
         }
 
-        static void AddScore(int points, int playerId, int levelId)
+        public static List<Score> GetScoreByLevel(Level level)
         {
-            Score score = new Score { Points = points, PlayerId = playerId, LevelId = levelId };
+            var scores = (from score in context.Score
+                          where score.Level.Id == level.Id
+                          select score).ToList();
+
+            return scores;
+        }
+
+        public static List<Score> GetScoreByPlayer(Player player)
+        {
+            var scores = (from score in context.Score
+                          where score.Player.Id == player.Id
+                          select score).ToList();
+
+            return scores;
+        }
+
+        public static void AddScore(int points, Player player, Level level)
+        {
+            Score score = new Score { Points = points, Player = player, Level = level };
 
             try
             {
                 context.Score.Add(score);
+                context.SaveChanges();
             }
             catch (Exception e)
             {
-                throw e;
+                return;
             }
-            finally
-            {
-                context.SaveChanges();
-            }
-            
+
         }
 
-        static Score AddOrUpdateScoreById(int id, int points, int playerId, int levelId)
+        public static Score AddOrUpdateScoreById(int id, int points, Player player, Level level)
         {
             Score score = null;
-            Score score2 = new Score { Points = points, PlayerId = playerId, LevelId = levelId };
+            Score score2 = new Score { Points = points, Player = player, Level = level };
 
             try
             {
                 score = (from scoreId in context.Score
-                               where scoreId.Id == id
-                               select scoreId).Single();
+                         where scoreId.Id == id
+                         select scoreId).Single();
 
                 if (score != null)
                 {
@@ -85,13 +100,13 @@ namespace AngryBirds.Controllers
                     return score;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                throw e;
+                return null;
             }
         }
 
-        static Score UpdateScorePointsById(int id, int points)
+        public static Score UpdateScorePointsById(int id, int points)
         {
             Score score = null;
             try
@@ -113,11 +128,11 @@ namespace AngryBirds.Controllers
             }
             catch (Exception e)
             {
-                throw e;
+                return null;
             }
         }
 
-        static bool DeleteScoreById(int id)
+        public static bool DeleteScoreById(int id)
         {
             Score score = null;
             try
@@ -139,7 +154,7 @@ namespace AngryBirds.Controllers
             }
             catch (Exception e)
             {
-                throw e;
+                return false;
             }
         }
     }
