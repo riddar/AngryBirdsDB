@@ -14,9 +14,10 @@ namespace AngryBirds.Models
         public int Id { get; set; }
         [Required]
         [StringLength(50)]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         public string Name { get; set; }
-        [Required]
         [StringLength(50)]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         public string Password { get; set; }
     }
 
@@ -26,6 +27,7 @@ namespace AngryBirds.Models
         public int Id { get; set; }
         [Required]
         [StringLength(50)]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
         public string Name { get; set; }
         [Required]
         public int Birds { get; set; }

@@ -77,6 +77,7 @@ namespace AngryBirds.Controllers
                 if (score != null)
                 {
                     context.Score.Add(score2);
+                    context.SaveChanges();
                     return score2;
                 }
                 else
@@ -87,10 +88,6 @@ namespace AngryBirds.Controllers
             catch(Exception e)
             {
                 throw e;
-            }
-            finally
-            {
-                context.SaveChanges();
             }
         }
 
@@ -106,6 +103,7 @@ namespace AngryBirds.Controllers
                 if (score != null)
                 {
                     score.Points = points;
+                    context.SaveChanges();
                     return score;
                 }
                 else
@@ -116,10 +114,6 @@ namespace AngryBirds.Controllers
             catch (Exception e)
             {
                 throw e;
-            }
-            finally
-            {
-                context.SaveChanges();
             }
         }
 
@@ -135,6 +129,7 @@ namespace AngryBirds.Controllers
                 if (score != null)
                 {
                     context.Score.Remove(score);
+                    context.SaveChanges();
                     return true;
                 }
                 else
@@ -145,10 +140,6 @@ namespace AngryBirds.Controllers
             catch (Exception e)
             {
                 throw e;
-            }
-            finally
-            {
-                context.SaveChanges();
             }
         }
     }
