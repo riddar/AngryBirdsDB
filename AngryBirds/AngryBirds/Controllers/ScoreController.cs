@@ -21,9 +21,9 @@ namespace AngryBirds.Controllers
                              select score;
                 return (scores).AsEnumerable();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
 
@@ -38,9 +38,9 @@ namespace AngryBirds.Controllers
                          select scoreId).First();
                 return score;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
 
@@ -71,9 +71,9 @@ namespace AngryBirds.Controllers
                 context.Score.Add(score);
                 context.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return;
+                throw ex;
             }
 
         }
@@ -100,9 +100,9 @@ namespace AngryBirds.Controllers
                     return score;
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
 
@@ -126,9 +126,9 @@ namespace AngryBirds.Controllers
                     return null;
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
 
@@ -152,9 +152,9 @@ namespace AngryBirds.Controllers
                     return false;
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return false;
+                throw ex;
             }
         }
     }

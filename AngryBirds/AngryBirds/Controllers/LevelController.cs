@@ -56,7 +56,7 @@ namespace AngryBirds.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw ex;
             }
 
             return level;
@@ -74,7 +74,7 @@ namespace AngryBirds.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw ex;
             }
 
             if (level != null)

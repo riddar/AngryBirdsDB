@@ -23,7 +23,7 @@ namespace AngryBirds.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw ex;
             }
             finally
             {
@@ -58,11 +58,11 @@ namespace AngryBirds.Controllers
             try
             {
                 allPlayers = (from player in context.Players
-                            select player).ToList();
+                              select player).ToList();
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw ex;
             }
 
             return allPlayers;
@@ -75,12 +75,30 @@ namespace AngryBirds.Controllers
             try
             {
                 thisPlayer = (from player in context.Players
-                             where player.Id == id
-                             select player).Single();
+                              where player.Id == id
+                              select player).Single();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw ex;
+            }
+
+            return thisPlayer;
+        }
+
+        public static Player GetPlayerByName(string name)
+        {
+            Player thisPlayer = null;
+
+            try
+            {
+                thisPlayer = (from player in context.Players
+                              where player.Name == name
+                              select player).Single();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
             return thisPlayer;
@@ -90,6 +108,32 @@ namespace AngryBirds.Controllers
         {
             context.Players.Remove(player);
             context.SaveChanges();
+        }
+
+        public static bool DeletePlayerByName(string name)
+        {
+            Player thisPlayer = null;
+            try
+            {
+                thisPlayer = GetPlayerByName(name);
+
+                if (thisPlayer != null)
+                {
+                    context.Players.Remove(thisPlayer);
+                    context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                
+            }
+            
         }
     }
 }
