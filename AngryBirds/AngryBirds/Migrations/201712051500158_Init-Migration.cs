@@ -3,7 +3,7 @@ namespace AngryBirds.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigration : DbMigration
+    public partial class InitMigration : DbMigration
     {
         public override void Up()
         {

@@ -119,6 +119,13 @@ namespace AngryBirds.Controllers
 
                 if (thisPlayer != null)
                 {
+                    List<Score> playerScores = new List<Score>();
+                    playerScores = ScoreController.GetScoreByPlayer(thisPlayer);
+
+                    // Remove all the players scores. (RemoveRange doesn't work, because of reasons.)
+                    foreach (Score s in playerScores)
+                        ScoreController.DeleteScoreById(s.Id);
+
                     context.Players.Remove(thisPlayer);
                     context.SaveChanges();
                     return true;
@@ -131,7 +138,6 @@ namespace AngryBirds.Controllers
             catch (Exception ex)
             {
                 throw ex;
-                
             }
             
         }
