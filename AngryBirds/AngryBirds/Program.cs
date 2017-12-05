@@ -22,6 +22,7 @@ namespace AngryBirds
 
             PlayerController.AddOrShowPlayer("Pontus Magnusson");
             PlayerController.AddOrShowPlayer("Fredrik Ridderheim");
+            PlayerController.AddOrShowPlayer("Nisse Nilsson");
 
 
             Console.ReadLine();
