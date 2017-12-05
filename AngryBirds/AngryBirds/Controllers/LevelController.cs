@@ -21,12 +21,28 @@ namespace AngryBirds.Controllers
             }
             catch (Exception ex)
             {
-                
+                Console.WriteLine(ex.Message);
             }
             finally
             {
                 context.SaveChanges();
             }
+        }
+
+        static IList<Level> GetAllLevels()
+        {
+            List<Level> allLevels = new List<Level>();
+            try
+            {
+                allLevels = (from level in context.Levels
+                             select level).ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return allLevels;
         }
 
         static Level GetLevelById(int levelId)
@@ -40,7 +56,7 @@ namespace AngryBirds.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine(ex.Message);
             }
 
             return level;
@@ -58,8 +74,7 @@ namespace AngryBirds.Controllers
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                Console.WriteLine(ex.Message);
             }
 
             if (level != null)

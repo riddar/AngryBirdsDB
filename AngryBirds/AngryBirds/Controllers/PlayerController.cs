@@ -23,7 +23,7 @@ namespace AngryBirds.Controllers
             }
             catch (Exception ex)
             {
-                
+                Console.WriteLine(ex.Message);
             }
             finally
             {
@@ -49,6 +49,41 @@ namespace AngryBirds.Controllers
                     context.SaveChanges();
                 }
             }
+        }
+
+        public static IList<Player> GetAllPlayers()
+        {
+
+            List<Player> allPlayers = new List<Player>();
+            try
+            {
+                allPlayers = (from player in context.Players
+                            select player).ToList();
+            }
+            catch(Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return allPlayers;
+        }
+
+        public static Player GetPlayerById(int id)
+        {
+            Player thisPlayer = null;
+
+            try
+            {
+                thisPlayer = (from player in context.Players
+                             where player.Id == id
+                             select player).Single();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return thisPlayer;
         }
 
         public static void DeletePlayer(Player player)
