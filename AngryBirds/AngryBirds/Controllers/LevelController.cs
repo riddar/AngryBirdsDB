@@ -11,25 +11,51 @@ namespace AngryBirds.Controllers
     {
         static AngryBirdsContext context = new AngryBirdsContext();
 
-        static void AddLevel(string levelName, int birds)
+        public static IEnumerable<Level> GetAllLevels()
         {
-            Level newLevel = new Level() { Name = levelName, Birds = birds };
-
             try
             {
-                context.Levels.Add(newLevel);
+                var levels = from level in context.Levels
+                             select level;
+                return (levels).AsEnumerable();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                
-            }
-            finally
-            {
-                context.SaveChanges();
+                return null;
             }
         }
 
-        static Level GetLevelById(int levelId)
+        public static Level AddOrUpdateLevel(string levelName, int birds)
+        {
+            Level newLevel = new Level() { Name = levelName, Birds = birds };
+            Level level = null;
+
+            try
+            {
+                level = (from levels in context.Levels
+                         where levels.Name == levelName
+                         select level).FirstOrDefault();
+
+                if (level != null)
+                {
+                    context.Entry(level).CurrentValues.SetValues(newLevel);
+                    context.SaveChanges();
+                    return level;
+                }
+                else
+                {
+                    context.Levels.Add(newLevel);
+                    context.SaveChanges();
+                    return newLevel;
+                }       
+            }
+            catch (Exception ex)
+            {
+                return null; 
+            }
+        }
+
+        public static Level GetLevelById(int levelId)
         {
             Level level = null;
             try
@@ -46,13 +72,13 @@ namespace AngryBirds.Controllers
             return level;
         }
 
-        static bool DeleteLevelById(int levelId)
+        public static bool DeleteLevelByName(string name)
         {
             Level level = null;
             try
             {
                 level = (from lev in context.Levels
-                         where lev.Id == levelId
+                         where lev.Name == name
                          select lev).Single();
 
             }

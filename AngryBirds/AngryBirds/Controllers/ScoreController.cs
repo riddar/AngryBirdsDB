@@ -80,8 +80,8 @@ namespace AngryBirds.Controllers
 
         public static Score AddOrUpdateScoreById(int id, int points, Player player, Level level)
         {
+            Score newScore = new Score { Points = points, Player = player, Level = level };
             Score score = null;
-            Score score2 = new Score { Points = points, Player = player, Level = level };
 
             try
             {
@@ -91,13 +91,65 @@ namespace AngryBirds.Controllers
 
                 if (score != null)
                 {
-                    context.Score.Add(score2);
+                    context.Score.Add(newScore);
                     context.SaveChanges();
-                    return score2;
+                    return newScore;
                 }
                 else
                 {
+                    context.Score.Add(newScore);
+                    context.SaveChanges();
+                    return newScore;
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public static Score AddOrUpdateScoreByPlayerNameandlevelname(int points, string playername, string levelname)
+        {
+            
+            Score score = null;
+            Player player = null;
+            Level level = null;
+            
+
+            try
+            {
+                score = (from scores in context.Score
+                         where scores.Player.Name == playername && scores.Level.Name == levelname
+                         select scores).FirstOrDefault();
+                
+                if (score != null)
+                {
+                    player = (from players in context.Players
+                              where players.Name == playername
+                              select players).FirstOrDefault();
+                    level = (from levels in context.Levels
+                             where levels.Name == levelname
+                             select levels).FirstOrDefault();
+                    Score newScore = new Score { Points = points, PlayerId = player.Id, LevelId = level.Id };
+                    context.Entry(score).CurrentValues.SetValues(newScore);
+                    context.SaveChanges();
                     return score;
+                }
+                else
+                {
+                    PlayerController.AddOrShowPlayer(playername);
+                    LevelController.AddOrUpdateLevel(levelname, 0);
+                    player = (from players in context.Players
+                              where players.Name == playername
+                              select players).FirstOrDefault();
+                    level = (from levels in context.Levels
+                             where levels.Name == levelname
+                             select levels).FirstOrDefault();
+                    Score newScore = new Score { Points = points, PlayerId = player.Id, LevelId = level.Id };
+
+                    context.Score.Add(newScore);
+                    context.SaveChanges();
+                    return newScore;
                 }
             }
             catch (Exception e)
@@ -132,14 +184,40 @@ namespace AngryBirds.Controllers
             }
         }
 
-        public static bool DeleteScoreById(int id)
+        public static bool DeleteScoreByLevelNameAndPlayerName(string PlayerName, string LevelName)
         {
             Score score = null;
             try
             {
-                score = (from scoreId in context.Score
-                         where scoreId.Id == id
-                         select scoreId).Single();
+                score = (from scores in context.Score
+                         where scores.Player.Name == PlayerName && scores.Level.Name == LevelName
+                         select scores).FirstOrDefault();
+
+                if (score != null)
+                {
+                    context.Score.Remove(score);
+                    context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public static bool DeleteScoreByPlayerName(string PlayerName)
+        {
+            Score score = null;
+            try
+            {
+                score = (from scores in context.Score
+                         where scores.Player.Name == PlayerName
+                         select scores).FirstOrDefault();
 
                 if (score != null)
                 {

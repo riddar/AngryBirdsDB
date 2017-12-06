@@ -11,6 +11,20 @@ namespace AngryBirds.Controllers
     {
         static AngryBirdsContext context = new AngryBirdsContext();
 
+        public static IEnumerable<Player> GetAllPlayers()
+        {
+            try
+            {
+                var Players = from player in context.Players
+                             select player;
+                return (Players).AsEnumerable();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         public static void AddOrShowPlayer(string playerName)
         {
             Player thisPlayer = null;
@@ -19,7 +33,7 @@ namespace AngryBirds.Controllers
             {
                 thisPlayer = (from player in context.Players
                               where player.Name == playerName
-                              select player).First();
+                              select player).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -55,6 +69,32 @@ namespace AngryBirds.Controllers
         {
             context.Players.Remove(player);
             context.SaveChanges();
+        }
+
+        public static bool DeletePlayerByName(string Name)
+        {
+            Player player = null;
+            try
+            {
+                player = (from players in context.Players
+                         where players.Name == Name
+                         select players).FirstOrDefault();
+
+                if (player != null)
+                {
+                    context.Players.Remove(player);
+                    context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

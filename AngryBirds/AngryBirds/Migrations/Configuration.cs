@@ -30,14 +30,15 @@ namespace AngryBirds.Migrations
                 new Models.Level() { Id = 2, Name = "Level 2", Birds = 3 },
                 new Models.Level() { Id = 3, Name = "Level 3", Birds = 5 }
                 );
+            
 
-            //context.Score.AddOrUpdate(x => x.Id,
-            //    new Models.Score() { Id = 1, Level = context.Levels.Where(l => l.Id == 1).First(), Player = context.Players.Where(p => p.Id == 1).First(), Points = 3 },
-            //    new Models.Score() { Id = 2, Level = context.Levels.Where(l => l.Id == 2).First(), Player = context.Players.Where(p => p.Id == 1).First(), Points = 2 },
-            //    new Models.Score() { Id = 3, Level = context.Levels.Where(l => l.Id == 1).First(), Player = context.Players.Where(p => p.Id == 2).First(), Points = 4 },
-            //    new Models.Score() { Id = 4, Level = context.Levels.Where(l => l.Id == 3).First(), Player = context.Players.Where(p => p.Id == 3).First(), Points = 5 },
-            //    new Models.Score() { Id = 5, Level = context.Levels.Where(l => l.Id == 2).First(), Player = context.Players.Where(p => p.Id == 3).First(), Points = 2 }
-            //    );
+            context.Score.AddOrUpdate(x => x.Id,
+                new Models.Score() { Id = 1, Level = context.Levels.Where(l => l.Id == 1).First(), Player = context.Players.Where(p => p.Id == 1).First(), Points = 3 },
+                new Models.Score() { Id = 2, Level = context.Levels.Where(l => l.Id == 2).First(), Player = context.Players.Where(p => p.Id == 1).First(), Points = 2 },
+                new Models.Score() { Id = 3, Level = context.Levels.Where(l => l.Id == 1).First(), Player = context.Players.Where(p => p.Id == 2).First(), Points = 4 },
+                new Models.Score() { Id = 4, Level = context.Levels.Where(l => l.Id == 3).First(), Player = context.Players.Where(p => p.Id == 3).First(), Points = 5 },
+                new Models.Score() { Id = 5, Level = context.Levels.Where(l => l.Id == 2).First(), Player = context.Players.Where(p => p.Id == 3).First(), Points = 2 }
+                );
         }
     }
 }
