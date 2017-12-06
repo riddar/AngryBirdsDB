@@ -106,6 +106,12 @@ namespace AngryBirds.Controllers
 
         public static void DeletePlayer(Player player)
         {
+
+            List<Score> playerScores = ScoreController.GetScoreByPlayer(player);
+
+            foreach (Score s in playerScores)
+                ScoreController.DeleteScoreById(s.Id);
+
             context.Players.Remove(player);
             context.SaveChanges();
         }
