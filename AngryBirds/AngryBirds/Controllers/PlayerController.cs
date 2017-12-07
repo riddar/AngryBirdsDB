@@ -25,6 +25,22 @@ namespace AngryBirds.Controllers
             }
         }
 
+        public static Player GetPlayerByName(string name)
+        {
+            Player player = null;
+            try
+            {
+                player = (from players in context.Players
+                          where players.Name == name
+                          select players).FirstOrDefault();
+                return player;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public static void AddOrShowPlayer(string playerName)
         {
             Player thisPlayer = null;
