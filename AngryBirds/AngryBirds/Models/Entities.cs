@@ -24,12 +24,11 @@ namespace AngryBirds.Models
 
     public class Level
     {
-        [Key]
+        
         public int Id { get; set; }
-        [Required]
-        [StringLength(50)]
+
         public string Name { get; set; }
-        [Required]
+
         public int Birds { get; set; }
 
         public virtual IList<Score> Scores { get; set; }
@@ -37,10 +36,9 @@ namespace AngryBirds.Models
 
     public class Score : IComparable<Score>
     {
-        [Key]
-        public int Id { get; set; }
 
-        [Required]
+        public int Id { get; set; }
+        
         public int Points { get; set; }
 
         public int PlayerId { get; set; }
@@ -56,6 +54,11 @@ namespace AngryBirds.Models
             if (Points > score.Points) return -1;
             if (Points == score.Points) return 0;
             return 1;
+        }
+
+        public override string ToString()
+        {
+            return Points.ToString();
         }
     }
 }

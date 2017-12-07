@@ -27,11 +27,16 @@ namespace AngryBirds
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<Score>().Property(s => s.Points).IsRequired();
             modelBuilder.Entity<Score>().HasRequired(s => s.Player);
             modelBuilder.Entity<Score>().HasRequired(s => s.Level);
 
+            modelBuilder.Entity<Player>().Property(p => p.Name).IsRequired().HasMaxLength(50);
             modelBuilder.Entity<Player>().HasMany(p => p.Scores).WithRequired(s => s.Player).WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Level>().HasKey(l => l.Id);
+            modelBuilder.Entity<Level>().Property(l => l.Name).IsRequired().HasMaxLength(50);
+            modelBuilder.Entity<Level>().Property(l => l.Birds).IsRequired();
             modelBuilder.Entity<Level>().HasMany(l => l.Scores).WithRequired(s => s.Level).WillCascadeOnDelete(false);
 
 
