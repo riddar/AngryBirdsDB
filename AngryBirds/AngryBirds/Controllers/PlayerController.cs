@@ -64,7 +64,7 @@ namespace AngryBirds.Controllers
 
                     Console.WriteLine($" {playerName} scores:");
                     foreach (var sc in score)
-                        Console.WriteLine($" {sc.Level.Name}: {sc.Points} drag [{sc.Level.Birds - sc.Points} kvar] Highscore: {sc.Level.Scores.Max().Points} by {sc.Level.Scores.Max().Player.Name}");
+                        Console.WriteLine($" {sc.Level.Name}: {sc.Points} drag [{sc.Level.Birds - sc.Points} kvar] Highscore: {sc.Level.Scores.Min().Points} by {sc.Level.Scores.Min().Player.Name}");
                 }
                 else
                 {

@@ -272,13 +272,12 @@ namespace AngryBirds
                             }
                             break;
                         case ConsoleKey.D2:
-                            //error still remaining
                             var allLevels = LevelController.GetAllLevels().ToList();
                             foreach (var levelid in allLevels)
                             {
                                 if (levelid.Scores.Count > 0)
                                 {
-                                    Console.WriteLine($"Level: {levelid.Name}, Highscore: {levelid.Scores.Max().Points}");
+                                    Console.WriteLine($"Level: {levelid.Name}, Highscore: {levelid.Scores.Min().Points}");
                                 }                          
                             }
                             Console.Write("Enter new score for player to be added: ");
@@ -345,7 +344,7 @@ namespace AngryBirds
                             {
                                 if (lev.Scores.Count > 0)
                                 {
-                                    Console.WriteLine($"{lev.Name}, Birds: {lev.Birds}, highestscore: {lev.Scores.Max().Points}, {lev.Scores.Max().Player.Name}");
+                                    Console.WriteLine($"{lev.Name}, Birds: {lev.Birds}, highestscore: {lev.Scores.Min().Points}, {lev.Scores.Min().Player.Name}");
                                 }
                                 else
                                 {
