@@ -51,9 +51,7 @@ namespace AngryBirds.Models
 
         public int CompareTo(Score score)
         {
-            if (Points > score.Points) return -1;
-            if (Points == score.Points) return 0;
-            return 1;
+            return Points.CompareTo(score.Points);
         }
 
         public override string ToString()
