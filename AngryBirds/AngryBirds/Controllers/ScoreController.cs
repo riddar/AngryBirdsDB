@@ -130,8 +130,9 @@ namespace AngryBirds.Controllers
                     level = (from levels in context.Levels
                              where levels.Name == levelname
                              select levels).FirstOrDefault();
-                    Score newScore = new Score { Points = points, PlayerId = player.Id, LevelId = level.Id };
-                    context.Entry(score).CurrentValues.SetValues(newScore);
+                    //Score newScore = new Score { Points = points, PlayerId = player.Id, LevelId = level.Id };
+                    score.Points = points;
+                    context.Entry(score).CurrentValues.SetValues(score);
                     context.SaveChanges();
                     return score;
                 }
@@ -154,6 +155,7 @@ namespace AngryBirds.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine(e);
                 return null;
             }
         }

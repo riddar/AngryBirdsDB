@@ -272,13 +272,22 @@ namespace AngryBirds
                             }
                             break;
                         case ConsoleKey.D2:
-                            Console.Write("Enter new score for player to Update: ");
+                            //error still remaining
+                            var allLevels = LevelController.GetAllLevels().ToList();
+                            foreach (var levelid in allLevels)
+                            {
+                                if (levelid.Scores.Count > 0)
+                                {
+                                    Console.WriteLine($"Level: {levelid.Name}, Highscore: {levelid.Scores.Max().Points}");
+                                }                          
+                            }
+                            Console.Write("Enter new score for player to be added: ");
                             int points = int.Parse(Console.ReadLine());
-                            Console.Write("and Enter players name to Update: ");
+                            Console.Write("and Enter players name to be added: ");
                             string player = Console.ReadLine();
-                            Console.Write("and Enter the level to Update: ");
+                            Console.Write("and Enter the level to be added: ");
                             string level = Console.ReadLine();
-                            var addedScore = ScoreController.AddOrUpdateScoreByPlayerNameandlevelname(points, player, level);
+                            ScoreController.AddOrUpdateScoreByPlayerNameandlevelname(points, player, level);
                             break;
                         case ConsoleKey.D3:
                             Console.Write("Enter score for player to Update: ");
