@@ -200,7 +200,7 @@ namespace AngryBirds
                         case ConsoleKey.D1:
                             foreach (Player player in PlayerController.GetAllPlayers().OrderBy(p => p.Name))
                             {
-                                Console.WriteLine($"{player.Name}, {player.Scores.Max()}");
+                                Console.WriteLine($"Name: {player.Name}, LevelsCompleted: {player.Scores.Count()}");
                             }
                             break;
                         case ConsoleKey.D2:
@@ -209,7 +209,13 @@ namespace AngryBirds
                             PlayerController.AddOrShowPlayer(playerName);
                             break;
                         case ConsoleKey.D3:
-                            //fill
+                            Console.Write("Enter the Name of the Player: ");
+                            string name = Console.ReadLine();
+                            Console.Write("please enter the score: ");
+                            int score = int.Parse(Console.ReadLine());
+                            Console.Write("and the level: ");
+                            string level = Console.ReadLine();
+                            ScoreController.AddOrUpdateScoreByPlayerNameandlevelname(score, name, level);
                             break;
                         case ConsoleKey.D4:
                             Console.Write("Enter the Name of the Player: ");
@@ -260,17 +266,16 @@ namespace AngryBirds
                             }
                             break;
                         case ConsoleKey.D2:
-                            Console.Write("and score By player to Update: ");
+                            Console.Write("Enter new score for player to Update: ");
                             int points = int.Parse(Console.ReadLine());
                             Console.Write("and Enter players name to Update: ");
                             string player = Console.ReadLine();
                             Console.Write("and Enter the level to Update: ");
                             string level = Console.ReadLine();
                             var addedScore = ScoreController.AddOrUpdateScoreByPlayerNameandlevelname(points, player, level);
-                            Console.WriteLine($"{addedScore.Points.ToString()}, {addedScore.Player.Name}, {addedScore.Level.Name}");
                             break;
                         case ConsoleKey.D3:
-                            Console.Write("and score By player to Update: ");
+                            Console.Write("Enter score for player to Update: ");
                             int points1 = int.Parse(Console.ReadLine());
                             Console.Write("and Enter players name to Update: ");
                             string player1 = Console.ReadLine();
@@ -279,7 +284,7 @@ namespace AngryBirds
                             ScoreController.AddOrUpdateScoreByPlayerNameandlevelname(points1, player1, level1);
                             break;
                         case ConsoleKey.D4:
-                            Console.Write("Enter score By player to delete: ");
+                            Console.Write("Enter player name to delete score: ");
                             string player2 = Console.ReadLine();
                             Console.Write("and Enter score By level to delete: ");
                             string level2 = Console.ReadLine();
@@ -323,7 +328,15 @@ namespace AngryBirds
                         case ConsoleKey.D1:
                             foreach (Level lev in LevelController.GetAllLevels().OrderBy(s => s.Id))
                             {
-                                Console.WriteLine($"{lev.Name}, {lev.Birds}, highestscore: {lev.Scores.Max()}");
+                                if (lev.Scores.Count > 0)
+                                {
+                                    Console.WriteLine($"{lev.Name}, Birds: {lev.Birds}, highestscore: {lev.Scores.Max().Points}, {lev.Scores.Max().Player.Name}");
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"{lev.Name}, Birds: {lev.Birds}, No Highscores!");
+                                }
+                                
                             }
                             break;
                         case ConsoleKey.D2:
