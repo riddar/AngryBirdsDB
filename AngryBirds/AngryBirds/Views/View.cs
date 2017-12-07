@@ -106,7 +106,13 @@ namespace AngryBirds
                         case ConsoleKey.D2:
                             Console.Write("please enter the score: ");
                             int score = int.Parse(Console.ReadLine());
-                            Console.Write("and the level: ");
+                            var player = PlayerController.GetPlayerByName(name);
+                            foreach (var scores in player.Scores)
+                            {
+                                var playerLevel = LevelController.GetLevelById(scores.LevelId);
+                                Console.WriteLine($"Level: {playerLevel.Name}, Highscore: {scores.Points}");
+                            }
+                            Console.Write("and the level name: ");
                             string level = Console.ReadLine();
                             ScoreController.AddOrUpdateScoreByPlayerNameandlevelname(score, name, level);
                             break;
